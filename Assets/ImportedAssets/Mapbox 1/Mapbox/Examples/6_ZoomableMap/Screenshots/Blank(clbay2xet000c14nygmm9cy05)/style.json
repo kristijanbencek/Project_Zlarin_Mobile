@@ -1,0 +1,90 @@
+{
+    "version": 8,
+    "name": "Blank",
+    "metadata": {
+        "mapbox:autocomposite": true,
+        "mapbox:type": "template",
+        "mapbox:sdk-support": {
+            "android": "10.6.0",
+            "ios": "latest",
+            "js": "latest"
+        },
+        "mapbox:groups": {},
+        "mapbox:uiParadigm": "layers"
+    },
+    "center": [15.858365086296288, 43.669731207474484],
+    "zoom": 11.599791773380455,
+    "bearing": 24.591288645955274,
+    "pitch": 12.935694539340732,
+    "sources": {
+        "composite": {
+            "url": "mapbox://mapbox.mapbox-streets-v8",
+            "type": "vector"
+        }
+    },
+    "sprite": "mapbox://sprites/cmejbarun/clbay2xet000c14nygmm9cy05/ck2u8j60r58fu0sgyxrigm3cu",
+    "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
+    "projection": {"name": "globe"},
+    "layers": [
+        {
+            "id": "background",
+            "type": "background",
+            "layout": {},
+            "paint": {"background-color": "hsl(43, 8%, 72%)"}
+        },
+        {
+            "id": "water",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "water",
+            "layout": {},
+            "paint": {
+                "fill-color": "hsl(216, 90%, 70%)",
+                "fill-outline-color": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    8,
+                    "hsla(0, 23%, 30%, 0)",
+                    22,
+                    "hsl(0, 3%, 1%)"
+                ]
+            }
+        },
+        {
+            "id": "road",
+            "type": "line",
+            "source": "composite",
+            "source-layer": "road",
+            "paint": {
+                "line-color": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    6.5,
+                    "hsla(10, 0%, 100%, 0)",
+                    6.6,
+                    "hsl(10, 3%, 6%)"
+                ],
+                "line-opacity": 0.3,
+                "line-blur": 1,
+                "line-width": 2
+            }
+        },
+        {
+            "id": "place-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "place_label",
+            "layout": {"text-field": ["to-string", ["get", "name_local"]]},
+            "paint": {"text-color": "hsl(0, 4%, 8%)"}
+        }
+    ],
+    "created": "2022-12-05T15:25:57.047Z",
+    "modified": "2022-12-06T13:52:17.085Z",
+    "id": "clbay2xet000c14nygmm9cy05",
+    "owner": "cmejbarun",
+    "visibility": "private",
+    "protected": false,
+    "draft": false
+}
