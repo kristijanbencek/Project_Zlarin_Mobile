@@ -30,7 +30,7 @@ public class ButtonManager : MonoBehaviour
     }
     public void Slumber()
     {
-        gm.TirednessMechanic();
+        gm.EnergyMechanic();
         //UIManager.healthinesSlider.value += 10;
     }
 }

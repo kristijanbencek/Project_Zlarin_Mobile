@@ -8,8 +8,13 @@ using TMPro;
 
 public class UI_Manager : MonoBehaviour
 {
-    public TMP_InputField ageInputField;
+    public GameManager gm;
+
     public GameObject[] textContent;
+    public Image[] statusImages;
+   
+    public TMP_InputField ageInputField;
+    public TMP_Text statusText;
 
     //public Slider happySad;
     //public Slider healthinesSlider;
@@ -17,15 +22,13 @@ public class UI_Manager : MonoBehaviour
     //public Slider WaterSlider;
     //public Slider TirednessSlider;
 
-
     private void Start()
     {
         //GetTimer();
-       
-       
         SetSliderValues();
         InvokeRepeating("DecreaseSliderValues", 1, 1);
     }
+    
     public void TestingPurposes()
     {
         
