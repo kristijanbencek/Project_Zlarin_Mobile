@@ -11,13 +11,16 @@ public class UI_Manager : MonoBehaviour
     public TMP_InputField ageInputField;
     public GameObject[] textContent;
 
-    public Slider happySad;
-    public Slider healthinesSlider;
+    //public Slider happySad;
+    //public Slider healthinesSlider;
+    //public Slider FoodSlider;
+    //public Slider WaterSlider;
+    //public Slider TirednessSlider;
 
 
     private void Start()
     {
-        GetTimer();
+        //GetTimer();
        
        
         SetSliderValues();
@@ -32,6 +35,7 @@ public class UI_Manager : MonoBehaviour
             case >15: LoadHarderQuestions(); Debug.Log("Test") ; break;
         }
     }//as it say, testing purposes
+    #region Questions & Age
     void LoadEasierQuestions()
     {
         for (int i = 0; i < textContent.Length; i++)
@@ -48,40 +52,46 @@ public class UI_Manager : MonoBehaviour
             textContent[1].SetActive(true);
         }
     } //If the age is above 15, harder questions are loaded
+    #endregion
+    #region TamaKurac status
     void DecreaseSliderValues()
     {
-        happySad.value -= .01f;
-        healthinesSlider.value -= .01f;
+
+        //happySad.value -= .01f;
+        //healthinesSlider.value -= .01f;
     }//Constantly decreases value of both sliders
     void SetSliderValues()
     {
-        happySad.maxValue = 100;
-        healthinesSlider.maxValue = 100;
+        //happySad.maxValue = 100;
+        //healthinesSlider.maxValue = 100;
     }
-    public void Test()
-    {
-        float date = DateTime.UtcNow.Ticks;
-        PlayerPrefs.SetFloat("lastDate", date);
-        PlayerPrefs.Save();
-    }
-    public void QuitMOde()
-    {
-        Test();
-    }
-    public void GetTimer()
-    {
-        long last = Convert.ToInt64(PlayerPrefs.GetFloat("lastDate"));
-        DateTime oldDate = DateTime.FromBinary(last);
-        DateTime currentDate = DateTime.Now;
+    #endregion
+    #region BackgroundTimer
+    //public void Test()
+    //{
+    //    float date = DateTime.UtcNow.Ticks;
+    //    PlayerPrefs.SetFloat("lastDate", date);
+    //    PlayerPrefs.Save();
+    //}
+    //public void QuitMOde()
+    //{
+    //    Test();
+    //}
+    //public void GetTimer()
+    //{
+    //    long last = Convert.ToInt64(PlayerPrefs.GetFloat("lastDate"));
+    //    DateTime oldDate = DateTime.FromBinary(last);
+    //    DateTime currentDate = DateTime.Now;
 
-        TimeSpan difference = currentDate.Subtract(oldDate);
+    //    TimeSpan difference = currentDate.Subtract(oldDate);
 
-        Debug.Log(oldDate.ToString("dd-MM-yyyy-hh-mm-ss"));
-        Debug.Log(currentDate.ToString("dd-MM-yyyy-hh-mm-ss"));
-        Debug.Log(difference.TotalSeconds);
+    //    Debug.Log(oldDate.ToString("dd-MM-yyyy-hh-mm-ss"));
+    //    Debug.Log(currentDate.ToString("dd-MM-yyyy-hh-mm-ss"));
+    //    Debug.Log(difference.TotalSeconds);
         
         
-    }
-        
-    
+    //}
+    #endregion 
+
+
 }

@@ -6,31 +6,31 @@ using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
-    public UI_Manager UIManager;
-    //Hrana
-    //Voda
-    //Šetnja
-    //Igra
-    //Spavanje
 
+    public GameManager gm;
     public void WalkWithMe()
     {
-        UIManager.happySad.value += 10;
+        //UIManager.happySad.value += 10;
+        gm.WalkingMechanic();
     }
     public void PlayWithMe()
     {
-        UIManager.happySad.value += 10;
+        gm.BorednessMechanic();
+        //UIManager.happySad.value += 10;
     }
     public void FeedMe()
     {
-        UIManager.healthinesSlider.value += 10;
+        gm.HungerMechanic();
+        //UIManager.healthinesSlider.value += 10;
     }
     public void WaterMe()
     {
-        UIManager.healthinesSlider.value += 10;
+        gm.ThirstMechanic();
+        //UIManager.healthinesSlider.value += 10;
     }
     public void Slumber()
     {
-        UIManager.healthinesSlider.value += 10;
+        gm.TirednessMechanic();
+        //UIManager.healthinesSlider.value += 10;
     }
 }
