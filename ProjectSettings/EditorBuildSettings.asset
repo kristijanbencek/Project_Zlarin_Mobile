@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Notification.unity
     guid: 02e915ad383fb494c9b67542919def0a
+  - enabled: 1
+    path: Assets/Ilumisoft/Minesweeper/Scenes/Game Medium.unity
+    guid: ed095859b7331b3489110e291a056678
   m_configObjects: {}

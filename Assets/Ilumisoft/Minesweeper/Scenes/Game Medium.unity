@@ -341,6 +341,10 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0.5575382
       objectReference: {fileID: 0}
+    - target: {fileID: 5273235133013192839, guid: 8bf1719dc8a5ba8409924b7c8789c485, type: 3}
+      propertyPath: sceneName
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 5840025674489176444, guid: 8bf1719dc8a5ba8409924b7c8789c485, type: 3}
       propertyPath: m_RootOrder
       value: 0

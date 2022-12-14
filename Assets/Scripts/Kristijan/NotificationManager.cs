@@ -121,7 +121,7 @@ namespace MyAmazingGame.Components
 
             //show at the specified time - 10:30 AM
             //you could also always set this a certain amount of hours ahead, since this code resets the schedule, this could be used to prompt the user to play again if they haven't played in a while
-            DateTime delivery_time = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 13, 50, 0);
+            DateTime delivery_time = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 30, 0);
             if (delivery_time < DateTime.Now)
             {
                 //if in the past (ex: this code runs at 11:00 AM), push delivery date forward 1 day
