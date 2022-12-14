@@ -5,6 +5,7 @@ using UnityEngine;
 public class MiniGamesManager : MonoBehaviour
 {
     [SerializeField] Transform protectPlayer;
+    [SerializeField] ProtectMeSpawner protectMe;
     public void LoadColorMiniGame()
     {
 
@@ -15,6 +16,6 @@ public class MiniGamesManager : MonoBehaviour
     }
     public void LoadCoralProtectGame()
     {
-
+        protectMe.ingame = true;
     }
 }

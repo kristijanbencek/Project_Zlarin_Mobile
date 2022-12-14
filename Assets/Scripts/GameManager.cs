@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateMethod()
     {
+        
         ClearText();
         LooseAll();
         //hunger = Mathf.Clamp(hunger, min, max);
@@ -188,5 +189,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+   
 
 }
