@@ -25,11 +25,11 @@ public class UI_Manager : MonoBehaviour
     private void Start()
     {
         //GetTimer();
-        SetSliderValues();
+        //SetSliderValues(); No currently needed
         InvokeRepeating("DecreaseSliderValues", 1, 1);
     }
     
-    public void TestingPurposes()
+    public void AgeVerification()
     {
         
         switch (int.Parse(ageInputField.text))
@@ -37,7 +37,7 @@ public class UI_Manager : MonoBehaviour
             case <=15: LoadEasierQuestions(); break;
             case >15: LoadHarderQuestions(); Debug.Log("Test") ; break;
         }
-    }//as it say, testing purposes
+    }//Method that verifies user's age and gives them questions based on them being younger or older than 15
     #region Questions & Age
     void LoadEasierQuestions()
     {
@@ -67,7 +67,7 @@ public class UI_Manager : MonoBehaviour
     {
         //happySad.maxValue = 100;
         //healthinesSlider.maxValue = 100;
-    }
+    }//Sets the starting values on application start
     #endregion
     #region BackgroundTimer
     //public void Test()

@@ -22,15 +22,9 @@ public class GameManager : MonoBehaviour
     //Spavanje
     public float energy = 100; //Sleep
 
-
-
     private DateTime currentDate;
     private DateTime lastDateOnAppQuit;
     private TimeSpan difference;
-
-
-
-
 
     private void Awake()
     {
@@ -41,9 +35,6 @@ public class GameManager : MonoBehaviour
         difference = currentDate.Subtract(lastDateOnAppQuit);
         Debug.Log(difference);
         Debug.Log(difference.TotalSeconds);
-
-
-
     }
     void Start()
     {
@@ -52,16 +43,8 @@ public class GameManager : MonoBehaviour
 
     void UpdateMethod()
     {
-        
         ClearText();
         LooseAll();
-        //hunger = Mathf.Clamp(hunger, min, max);
-        //thirst = Mathf.Clamp(thirst, min, max);
-        //walking = Mathf.Clamp(walking, min, max);
-        //boredness = Mathf.Clamp(boredness, min, max);
-        //energy = Mathf.Clamp(energy, min, max);
-        //Debug.Log("Test");
-        //Debug.Log(hunger);
     }
     void LooseAll()
     {
@@ -76,20 +59,21 @@ public class GameManager : MonoBehaviour
         if (energy > 0)
             energy -= .1f;
 
-    }
+    }//Method that makes koralj loose everything over time
     #region Koralj mechanics
     public void HungerMechanic()
     {
         hunger = Mathf.Clamp(hunger, min, max);
         hunger += 10;
-    }
-    public void ThirstMechanic()
+    }//A method that gives koralj food
+    public void ThirstMechanic()//A method that gives koralj water
     {
         thirst = Mathf.Clamp(thirst, min, max);
         thirst += 10;
     }
-    public void WalkingMechanic()
+    public void WalkingMechanic()//A method that increases koraljs walking needs lmao
     {
+        
         output = "";
         timer = 2;
         if (hunger > 20 && thirst > 20 && energy > 20)
@@ -160,7 +144,6 @@ public class GameManager : MonoBehaviour
             Debug.Log(output);
 
             ui.statusText.text = output;
-            
         }
     }
     public void EnergyMechanic()
