@@ -56,7 +56,7 @@ public class UI_Manager : MonoBehaviour
         }
     } //If the age is above 15, harder questions are loaded
     #endregion
-    #region TamaKurac status
+    #region TamaKurac stats
     void DecreaseSliderValues()
     {
 

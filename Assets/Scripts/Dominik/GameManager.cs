@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] string output = "";
@@ -9,10 +9,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] float min = 0;
     [SerializeField] UI_Manager ui;
 
+    //Save system
+    public GameData gameData;
+    public Text saveDataTest;
+    public int test;
+
     [TextArea]
     public string myTextArea;
     //Hrana
-    public float hunger = 100; //Eat
+    public float hunger; //Eat
     //Voda
     public float thirst = 100; //Drink
     //Šetnja
@@ -28,6 +33,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        gameData = SaveSystem.Load();
+        LoadData();
+        
         long lastDateFetch = Convert.ToInt64(PlayerPrefs.GetFloat("lastDate"));
         lastDateOnAppQuit = DateTime.FromBinary(lastDateFetch);
         currentDate = DateTime.Now.ToLocalTime();
@@ -43,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateMethod()
     {
+        
         ClearText();
         LooseAll();
     }
@@ -58,6 +67,8 @@ public class GameManager : MonoBehaviour
             boredness -= .1f;
         if (energy > 0)
             energy -= .1f;
+        SaveWhileInBackground();
+        
 
     }//Method that makes koralj loose everything over time
     #region Koralj mechanics
@@ -65,15 +76,19 @@ public class GameManager : MonoBehaviour
     {
         hunger = Mathf.Clamp(hunger, min, max);
         hunger += 10;
+        gameData.currentHunger = hunger;
+        SaveMe();
     }//A method that gives koralj food
     public void ThirstMechanic()//A method that gives koralj water
     {
         thirst = Mathf.Clamp(thirst, min, max);
         thirst += 10;
+        gameData.currentThirst = thirst;
+        SaveMe();
     }
     public void WalkingMechanic()//A method that increases koraljs walking needs lmao
     {
-        
+
         output = "";
         timer = 2;
         if (hunger > 20 && thirst > 20 && energy > 20)
@@ -101,10 +116,11 @@ public class GameManager : MonoBehaviour
             Debug.Log(output);
             ui.statusText.text = output;
         }
+       
     }
     public void BorednessMechanic()
     {
-       
+
         if (hunger > 20 && thirst > 20 && energy > 20)
         {
             boredness = Mathf.Clamp(boredness, min, max);
@@ -145,11 +161,14 @@ public class GameManager : MonoBehaviour
 
             ui.statusText.text = output;
         }
+        SaveMe();
     }
     public void EnergyMechanic()
     {
         energy = Mathf.Clamp(energy, min, max);
         energy += 10;
+        gameData.currentEnergy = energy;
+        SaveMe();
     }
 
     #endregion
@@ -173,6 +192,22 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-   
+    public void SaveMe()
+    {
+        SaveSystem.Save(gameData);
+    }
+    void LoadData()
+    {
+        hunger = gameData.currentHunger;
+        thirst = gameData.currentThirst;
+        energy = gameData.currentEnergy;
+    }
+    void SaveWhileInBackground()
+    {
+        gameData.currentHunger = hunger;
+        gameData.currentThirst = thirst;
+        gameData.currentEnergy = energy;
+        SaveMe();
+    }
 
 }

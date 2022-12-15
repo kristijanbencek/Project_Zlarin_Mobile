@@ -20,7 +20,7 @@ public class Test : MonoBehaviour
 
     void Update()
     {
-        healthTXT.text = gameData.totalHealth.ToString();
+        //healthTXT.text = gameData.totalHealth.ToString();
     }
 
     public void AddHealth()
