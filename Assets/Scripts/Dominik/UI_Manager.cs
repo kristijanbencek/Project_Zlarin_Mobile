@@ -29,13 +29,13 @@ public class UI_Manager : MonoBehaviour
         InvokeRepeating("DecreaseSliderValues", 1, 1);
     }
     
-    public void AgeVerification()
+    public void AgeVerification(string age)
     {
-        
-        switch (int.Parse(ageInputField.text))
+        string choice = age;
+        switch (choice)
         {
-            case <=15: LoadEasierQuestions(); break;
-            case >15: LoadHarderQuestions(); Debug.Log("Test") ; break;
+            case "younger": LoadEasierQuestions(); break;
+            case "older": LoadHarderQuestions(); Debug.Log("Test") ; break;
         }
     }//Method that verifies user's age and gives them questions based on them being younger or older than 15
     #region Questions & Age

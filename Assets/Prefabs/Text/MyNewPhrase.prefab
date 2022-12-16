@@ -47,7 +47,9 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: English
-    Text: Placeholder
+    Text: 'So guys we did it, Domagoj is opening. Congrats
+
+'
     Object: {fileID: 0}
   - Language: Croatian
     Text: Mamu ti

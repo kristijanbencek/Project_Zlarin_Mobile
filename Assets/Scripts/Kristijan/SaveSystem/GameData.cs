@@ -5,9 +5,17 @@ using UnityEngine;
 [System.Serializable]
 public class GameData 
 {
+    /*
+     * todo
+     * -make so that the language and age panel loads on first start only
+     * -save age system
+     * -import animations
+     * -import final map package
+     * 
+     */
+
     public int totalHealth;
     //public float testest;
-
 
     public float currentThirst;
     public float currentHunger;
