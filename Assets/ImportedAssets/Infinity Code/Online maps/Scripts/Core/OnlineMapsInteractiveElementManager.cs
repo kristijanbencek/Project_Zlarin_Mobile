@@ -126,40 +126,40 @@ public abstract class OnlineMapsInteractiveElementManager<T, U>: MonoBehaviour, 
         }
     }
 
-    // <summary>
-    // Remove all items
-    // </summary>
+    /// <summary>
+    /// Remove all items
+    /// </summary>
     public static void RemoveAllItems()
     {
         if (instance != null) instance.RemoveAll();
     }
 
-    // <summary>
-    // Removes all items which matches the predicate
-    // </summary>
-    // <param name="match">Predicate</param>
+    /// <summary>
+    /// Removes all items which matches the predicate
+    /// </summary>
+    /// <param name="match">Predicate</param>
     public static void RemoveAllItems(Predicate<U> match)
     {
         if (instance != null) instance.items.RemoveAll(match);
     }
 
-    // <summary>
-    // Remove an item
-    // </summary>
-    // <param name = "item" > Item </ param >
-    // < param name="dispose">Dispose the item</param>
-    // <returns>True - success, false - otherwise</returns>
+    /// <summary>
+    /// Remove an item
+    /// </summary>
+    /// <param name="item">Item</param>
+    /// <param name="dispose">Dispose the item</param>
+    /// <returns>True - success, false - otherwise</returns>
     public static bool RemoveItem(U item, bool dispose = true)
     {
         if (instance != null) return instance.Remove(item, dispose);
         return false;
     }
 
-    // <summary>
-    // Remove an item by index
-    // </summary>
-    // <param name="index">Index of item</param>
-    // <returns>Item that was removed</returns>
+    /// <summary>
+    /// Remove an item by index
+    /// </summary>
+    /// <param name="index">Index of item</param>
+    /// <returns>Item that was removed</returns>
     public static U RemoveItemAt(int index)
     {
         if (instance != null) return instance.RemoveAt(index);

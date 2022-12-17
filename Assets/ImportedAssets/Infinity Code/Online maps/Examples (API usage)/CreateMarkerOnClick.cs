@@ -17,31 +17,17 @@ namespace InfinityCode.OnlineMapsExamples
             OnlineMapsControlBase.instance.OnMapClick += OnMapClick;
         }
 
-        public bool markerButtonpressed
-        {
-            get; set;
-        }
-
         private void OnMapClick()
         {
-            if(markerButtonpressed)
-            {
+            // Get the coordinates under the cursor.
+            double lng, lat;
+            OnlineMapsControlBase.instance.GetCoords(out lng, out lat);
 
-                // Get the coordinates under the cursor.
-                double lng, lat;
-                OnlineMapsControlBase.instance.GetCoords(out lng, out lat);
+            // Create a label for the marker.
+            string label = "Marker " + (OnlineMapsMarkerManager.CountItems + 1);
 
-                // Create a label for the marker.
-                string label = "Marker " + (OnlineMapsMarkerManager.CountItems + 1);
-
-                // Create a new marker.
-                OnlineMapsMarkerManager.CreateItem(lng, lat, label);
-
-                markerButtonpressed = false;
-
-            }
+            // Create a new marker.
+            OnlineMapsMarkerManager.CreateItem(lng, lat, label);
         }
-
-
     }
 }

@@ -21,9 +21,6 @@ namespace InfinityCode.OnlineMapsExamples
         {
             // Hide background.
             style.normal.background = null;
-            style.fixedHeight = 60;
-            style.fixedWidth = 200;
-            style.fontSize = 40;
         }
     }
 }

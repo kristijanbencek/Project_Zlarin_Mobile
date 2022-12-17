@@ -19,7 +19,7 @@ namespace InfinityCode.OnlineMapsDemos
         public MarkerData[] datas;
 
         private Canvas canvas;
-        public OnlineMaps map;
+        private OnlineMaps map;
         private OnlineMapsTileSetControl control;
 
         private Camera worldCamera
@@ -47,6 +47,7 @@ namespace InfinityCode.OnlineMapsDemos
 
         private void Start()
         {
+            map = OnlineMaps.instance;
             control = OnlineMapsTileSetControl.instance;
 
             map.OnMapUpdated += UpdateMarkers;

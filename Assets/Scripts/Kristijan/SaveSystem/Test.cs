@@ -7,7 +7,6 @@ public class Test : MonoBehaviour
 {
     public GameData gameData;
 
-
     public int health = 1;
     public TMP_Text healthTXT;
 
@@ -15,14 +14,10 @@ public class Test : MonoBehaviour
     {
         gameData = SaveSystem.Load();
     }
-
-
-
     void Update()
     {
         //healthTXT.text = gameData.totalHealth.ToString();
     }
-
     public void AddHealth()
     {                
         gameData.totalHealth += health;

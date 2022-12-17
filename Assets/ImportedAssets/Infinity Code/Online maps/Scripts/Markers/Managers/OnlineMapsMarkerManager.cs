@@ -137,7 +137,7 @@ public class OnlineMapsMarkerManager : OnlineMapsMarkerManagerBase<OnlineMapsMar
     public void LoadSettings(OnlineMapsJSONItem json)
     {
         OnlineMapsJSONItem jitems = json["items"];
-        //RemoveAll();
+        RemoveAll();
         foreach (OnlineMapsJSONItem jitem in jitems)
         {
             OnlineMapsMarker marker = new OnlineMapsMarker();
@@ -194,16 +194,7 @@ public class OnlineMapsMarkerManager : OnlineMapsMarkerManagerBase<OnlineMapsMar
         if (allowAddMarkerByM && Input.GetKeyUp(KeyCode.M))
         {
             double lng, lat;
-            if (map.control.GetCoords(out lng, out lat))
-            { 
-                // Create a label for the marker.
-                string label = "Marker " + (OnlineMapsMarkerManager.CountItems + 1);
-
-                // Create a new marker.
-                OnlineMapsMarkerManager.CreateItem(lng, lat, label);
-
-                
-            }
+            if (map.control.GetCoords(out lng, out lat)) Create(lng, lat);
         }
     }
 }

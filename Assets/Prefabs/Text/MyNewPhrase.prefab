@@ -47,10 +47,10 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: English
-    Text: 'So guys we did it, Domagoj is opening. Congrats
+    Text: 'Hello, I am your friendly underwater Coral Reef!
 
 '
     Object: {fileID: 0}
   - Language: Croatian
-    Text: Mamu ti
+    Text: "Pozdrav, ja sam va\u0161 podvodni koralj!"
     Object: {fileID: 0}
