@@ -14,6 +14,8 @@ public class UI_Manager : MonoBehaviour
     [Header("MainMenuSettings")]
     public GameObject ageAndLanguageSettings;//Change age or language while in main menu
     bool ageAndLang = false;
+    public GameObject deactivateMechanicButtons;
+    bool mechanicButtonsActive = true;
 
     public GameObject[] textContent;
     public Image[] statusImages;
@@ -75,6 +77,9 @@ public class UI_Manager : MonoBehaviour
     {
         ageAndLang = !ageAndLang;
         ageAndLanguageSettings.SetActive(ageAndLang);
+
+        mechanicButtonsActive = !mechanicButtonsActive;
+        deactivateMechanicButtons.SetActive(mechanicButtonsActive);
     }
     #endregion
     #region TamaKurac stats

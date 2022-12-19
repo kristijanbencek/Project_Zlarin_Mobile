@@ -232,5 +232,9 @@ public class GameManager : MonoBehaviour
         gameData.currentEnergy = energy;
         SaveGameData();
     }
+    public void QuitApp()
+    {
+        Application.Quit();
+    }
    
 }

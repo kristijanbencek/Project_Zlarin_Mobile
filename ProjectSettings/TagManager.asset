@@ -16,7 +16,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Model
   - Map
   - 
   - 
@@ -44,4 +44,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1394934519
+    locked: 0
+  - name: Model
+    uniqueID: 1494720835
     locked: 0
