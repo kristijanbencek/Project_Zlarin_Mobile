@@ -10,6 +10,7 @@ public class UI_Manager : MonoBehaviour
 {
     [Header("Other scripts references")]
     [SerializeField] GameManager gm;
+    [SerializeField] CoralState coralState;
 
     [Header("MainMenuSettings")]
     public GameObject ageAndLanguageSettings;//Change age or language while in main menu
@@ -42,8 +43,9 @@ public class UI_Manager : MonoBehaviour
         {
             activeOnFirstLoadOnly[0].SetActive(true);
         }
+        
         //GetTimer();
-        //SetSliderValues(); No currently needed
+        //SetSliderValues(); Not currently needed
         InvokeRepeating("DecreaseSliderValues", 1, 1);
     }
     
@@ -75,6 +77,11 @@ public class UI_Manager : MonoBehaviour
     } //If the age is above 15, harder questions are loaded
     public void ActivateDeactivateSettingsMenu()
     {
+        coralState.coralVisible = !coralState.coralVisible;
+        coralState.modelMesh.enabled = coralState.coralVisible;
+        coralState.eyesRender[0].enabled = coralState.coralVisible;
+        coralState.eyesRender[1].enabled = coralState.coralVisible;
+
         ageAndLang = !ageAndLang;
         ageAndLanguageSettings.SetActive(ageAndLang);
 

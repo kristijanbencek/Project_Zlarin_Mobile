@@ -15,7 +15,7 @@ public class ButtonManager : MonoBehaviour
     }
     public void PlayWithMe()
     {
-        gm.BorednessMechanic();
+        gm.PlayMechanic();
         //UIManager.happySad.value += 10;
     }
     public void FeedMe()

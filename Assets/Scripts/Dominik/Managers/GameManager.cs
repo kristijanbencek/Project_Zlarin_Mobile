@@ -5,8 +5,8 @@ public class GameManager : MonoBehaviour
 {
     [Header("Other scripts references")]
     [SerializeField] UI_Manager ui;
+    [SerializeField] SceneManagment sceneManager;
     [SerializeField] GameData gameData;
-
 
     [SerializeField] string output = "";
     [SerializeField] float max = 100;
@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     //public Text saveDataTest;
     public int test;
     public GameObject coralState;
+    public float secondsPassedSinceLastQuit;
+
 
     [TextArea]
     public string myTextArea;
@@ -40,20 +42,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         gameData = SaveSystem.Load();
-       
-
         LoadData();
     }
     void Start()
     {
-        long lastDate = Convert.ToInt64(PlayerPrefs.GetString("lastDateString"));
-        DateTime oldDate = DateTime.FromBinary(lastDate);
-        Debug.Log(oldDate);
-
-        currentDate = DateTime.Now;
-        TimeSpan difference = currentDate.Subtract(oldDate);
-        Debug.Log(difference);
-        testingTextForTime.text = "Last date and time: " + oldDate + "\n" + "Current date and time: " + currentDate + "\n" + "Difference" + difference;
+        LoadDateAndTime();
+        BackgroundValuesChange();
         InvokeRepeating("UpdateMethod", 0, 1);
     }
     private void Update()
@@ -70,12 +64,15 @@ public class GameManager : MonoBehaviour
         {
             ui.activeOnFirstLoadOnly[i].SetActive(gameData.firstLoad);
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            QuitApp();
+        }
     }
     void UpdateMethod()
     {
-        
         ClearText();
-        LooseAll();
+       // LooseAll();
     }//custom update method
     void LooseAll()
     {
@@ -118,6 +115,7 @@ public class GameManager : MonoBehaviour
             energy -= 10;
             thirst -= 5;
             hunger -= 10;
+           
         }
         else //Write an output depending on its hunger/thirst/energy state
         {
@@ -138,14 +136,16 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    public void BorednessMechanic()
+    public void PlayMechanic()
     {
 
         if (hunger > 20 && thirst > 20 && energy > 20)
         {
             boredness = Mathf.Clamp(boredness, min, max);
             boredness += 10;
-            energy -= 5;
+            energy -= 20;
+            gameData.currentEnergy = energy;
+            sceneManager.LoadScene("Game Medium"); 
         }
         else//Write an output depending on its hunger/thirst/energy state
         {
@@ -196,22 +196,22 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetString("lastDateString", DateTime.Now.ToBinary().ToString());
         PlayerPrefs.Save();
-    }
+    }//On quit or button, save date and time to be used on next application startup
     public void SaveGameData()
     {
         SaveSystem.Save(gameData);
-    }
+    }//Saves game data, like Coral mechanics status, date and time etc...
     public void FirstLoadSet(bool state)
     {
         gameData.firstLoad = state;
         SaveSystem.Save(gameData);
-    }
+    }//Was the app loaded for the first time
     void LoadData()
-    {
+    {      
         hunger = gameData.currentHunger;
         thirst = gameData.currentThirst;
         energy = gameData.currentEnergy;
-    }
+    }//Loads game data that is used for Coral mechanics 
     void ClearText()
     {
 
@@ -224,7 +224,7 @@ public class GameManager : MonoBehaviour
                 timer = 2;
             }
         }
-    }
+    }//A method that clears a pop-up's text after a given time 
     void SaveWhileInBackground()
     {
         gameData.currentHunger = hunger;
@@ -236,5 +236,39 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+    void LoadDateAndTime()//Load date saved in the playerprefs, get current date and then compare them by substracting current date with last saved date
+    {
+        long lastDate = Convert.ToInt64(PlayerPrefs.GetString("lastDateString"));
+        DateTime oldDate = DateTime.FromBinary(lastDate);
+        Debug.Log(oldDate);
+        Debug.Log(secondsPassedSinceLastQuit);
+
+        currentDate = DateTime.Now;
+        TimeSpan difference = currentDate.Subtract(oldDate);
+        Debug.Log("Seconds since last quit: " + difference);
+        secondsPassedSinceLastQuit = (float) difference.TotalSeconds;
+        Debug.Log(secondsPassedSinceLastQuit);//Use this for the mechanic system(change values based on the formula that goes like this... Current date - LastDate the app was closed)
+        testingTextForTime.text = "Last date and time: " + oldDate + "\n" + "Current date and time: " + currentDate + "\n" + "Difference" + difference;
+    }
+    void BackgroundValuesChange()
+    {
+        var subtractThis = secondsPassedSinceLastQuit / 60 * .005f;
+        hunger -= subtractThis;
+        thirst -= subtractThis;
+        energy -= subtractThis;
+
+        thirst = Math.Clamp(thirst, 0, 100);
+        energy = Math.Clamp(energy, 0, 100);
+        hunger = Math.Clamp(hunger, 0, 100);
+
+        gameData.currentHunger = hunger;
+        gameData.currentEnergy = energy;
+        gameData.currentThirst = thirst;
+        SaveGameData();
+    }
+    //void SetToZero(float value)
+    //{
+    //    value = 0;
+    //}
    
 }

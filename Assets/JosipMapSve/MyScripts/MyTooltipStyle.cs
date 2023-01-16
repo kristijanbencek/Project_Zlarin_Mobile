@@ -18,7 +18,7 @@ using UnityEngine;
             //style.normal.background = null;
             //style.fixedHeight = 600;
             //style.fixedWidth = 2000;
-            style.fontSize = 40;
+            //style.fontSize = Screen.width / 25;
         }
     }
 

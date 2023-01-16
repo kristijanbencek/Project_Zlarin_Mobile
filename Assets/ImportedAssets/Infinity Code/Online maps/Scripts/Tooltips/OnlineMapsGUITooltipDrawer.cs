@@ -48,8 +48,9 @@ public class OnlineMapsGUITooltipDrawer: OnlineMapsTooltipDrawerBase
             richText = true,
             alignment = TextAnchor.MiddleCenter,
             stretchWidth = true,
-            padding = new RectOffset(0, 0, 3, 3)
-        };
+            padding = new RectOffset(0, 0, 3, 3),
+            fontSize = Screen.width / 25
+    };
     }
 
     ~OnlineMapsGUITooltipDrawer()
