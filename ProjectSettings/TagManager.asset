@@ -8,6 +8,7 @@ TagManager:
   - ProtectPlayer
   - ProtectMeGame
   - Bomb
+  - Button
   layers:
   - Default
   - TransparentFX

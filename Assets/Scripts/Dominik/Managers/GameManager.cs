@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     void UpdateMethod()
     {
         ClearText();
-       // LooseAll();
+        // LooseAll();
     }//custom update method
     void LooseAll()
     {
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
             energy -= 10;
             thirst -= 5;
             hunger -= 10;
-           
+
         }
         else //Write an output depending on its hunger/thirst/energy state
         {
@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
             boredness += 10;
             energy -= 20;
             gameData.currentEnergy = energy;
-            sceneManager.LoadScene("Game Medium"); 
+            sceneManager.LoadScene("Game Medium");
         }
         else//Write an output depending on its hunger/thirst/energy state
         {
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
         SaveSystem.Save(gameData);
     }//Was the app loaded for the first time
     void LoadData()
-    {      
+    {
         hunger = gameData.currentHunger;
         thirst = gameData.currentThirst;
         energy = gameData.currentEnergy;
@@ -241,18 +241,17 @@ public class GameManager : MonoBehaviour
         long lastDate = Convert.ToInt64(PlayerPrefs.GetString("lastDateString"));
         DateTime oldDate = DateTime.FromBinary(lastDate);
         Debug.Log(oldDate);
-        Debug.Log(secondsPassedSinceLastQuit);
 
         currentDate = DateTime.Now;
         TimeSpan difference = currentDate.Subtract(oldDate);
         Debug.Log("Seconds since last quit: " + difference);
-        secondsPassedSinceLastQuit = (float) difference.TotalSeconds;
+        secondsPassedSinceLastQuit = (float)difference.TotalSeconds;
         Debug.Log(secondsPassedSinceLastQuit);//Use this for the mechanic system(change values based on the formula that goes like this... Current date - LastDate the app was closed)
         testingTextForTime.text = "Last date and time: " + oldDate + "\n" + "Current date and time: " + currentDate + "\n" + "Difference" + difference;
     }
     void BackgroundValuesChange()
     {
-        var subtractThis = secondsPassedSinceLastQuit / 60 * .005f;
+        var subtractThis = secondsPassedSinceLastQuit / 60 * .05f;
         hunger -= subtractThis;
         thirst -= subtractThis;
         energy -= subtractThis;
@@ -270,5 +269,5 @@ public class GameManager : MonoBehaviour
     //{
     //    value = 0;
     //}
-   
+
 }

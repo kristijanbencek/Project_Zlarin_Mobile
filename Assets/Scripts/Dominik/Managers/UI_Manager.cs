@@ -8,9 +8,14 @@ using TMPro;
 
 public class UI_Manager : MonoBehaviour
 {
+
+    public Button[] allButtons;
+   
+
     [Header("Other scripts references")]
     [SerializeField] GameManager gm;
     [SerializeField] CoralState coralState;
+    [SerializeField] AudioManager aM;
 
     [Header("MainMenuSettings")]
     public GameObject ageAndLanguageSettings;//Change age or language while in main menu
@@ -35,6 +40,10 @@ public class UI_Manager : MonoBehaviour
 
     private void Start()
     {
+        for (int i = 0; i < allButtons.Length; i++)
+        {
+            allButtons[i].onClick.AddListener(()=> aM.PlayOneShot());
+        }
         if(gm.firstLoad == true)
         {
             activeOnFirstLoadOnly[0].SetActive(false);
@@ -48,7 +57,11 @@ public class UI_Manager : MonoBehaviour
         //SetSliderValues(); Not currently needed
         InvokeRepeating("DecreaseSliderValues", 1, 1);
     }
-    
+    private void Update()
+    {
+        
+    }
+
     public void AgeVerification(string age)
     {
         string choice = age;

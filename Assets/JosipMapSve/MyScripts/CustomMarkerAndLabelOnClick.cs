@@ -11,10 +11,12 @@ public class CustomMarkerAndLabelOnClick : MonoBehaviour
     private string labelText;
     private string label;
 
-    private Texture2D currentIcon;
+    //private Texture2D currentIcon;
 
     public GameObject markerNameInputField;
     public ChangeIconClick textureReference;
+
+    private RemoveLastPlaced markerCounter;
 
     private TMP_InputField markerNameInputText;
     double lng, lat;
@@ -25,6 +27,7 @@ public class CustomMarkerAndLabelOnClick : MonoBehaviour
         // Subscribe to the click event.
         OnlineMapsControlBase.instance.OnMapClick += OnMapClick;
         markerNameInputText = markerNameInputField.GetComponent<TMP_InputField>();
+        markerCounter = GetComponent<RemoveLastPlaced>();
 
     }
 
@@ -66,7 +69,7 @@ public class CustomMarkerAndLabelOnClick : MonoBehaviour
             label = markerNameInputText.text;
         }
         Setlabel();
-        SetIcon();
+        //SetIcon();
         // Create a new marker.
 
 
@@ -84,15 +87,17 @@ public class CustomMarkerAndLabelOnClick : MonoBehaviour
         return label;
     }
 
-    public void SetIcon()
-    {
-        currentIcon = textureReference.currentTexture;
+    //public void SetIcon()
+    //{
+    //    currentIcon = textureReference.currentTexture;
 
-    }
+    //}
 
     private void CreateMarkerWithLabel(double lng, double lat, string label)
     {
-        OnlineMapsMarkerManager.CreateItem(lng, lat, currentIcon ,label);
+        OnlineMapsMarkerManager.CreateItem(lng, lat, label);
+        markerCounter.CountMarkers();
+        MyMarkerSaver.SaveMarkers();
     }
 
 }
