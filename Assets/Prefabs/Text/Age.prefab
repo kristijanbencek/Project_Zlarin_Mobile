@@ -47,8 +47,8 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: English
-    Text: 'Enter your age:'
+    Text: Age
     Object: {fileID: 0}
   - Language: Croatian
-    Text: "Unesite va\u0161u dob:"
+    Text: "Va\u0161a dob"
     Object: {fileID: 0}
