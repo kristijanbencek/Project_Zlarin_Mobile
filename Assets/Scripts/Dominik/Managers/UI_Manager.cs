@@ -70,7 +70,7 @@ public class UI_Manager : MonoBehaviour
             case "younger": LoadEasierQuestions(); break;
             case "older": LoadHarderQuestions(); Debug.Log("Test") ; break;
         }
-    }//Method that verifies user's age and gives them questions based on them being younger or older than 15
+    }//Method that verifies user's age and gives them questions based on them being younger or older than 15 NOT USED AT THIS VERSION OF THE APPLICATION!!!!!!!!!!
     #region Questions & Age
     void LoadEasierQuestions()
     {

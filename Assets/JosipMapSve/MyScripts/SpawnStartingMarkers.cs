@@ -9,11 +9,6 @@ public class SpawnStartingMarkers : MonoBehaviour
         OnlineMaps map = OnlineMaps.instance;
 
         // Add OnClick events to static markers
-        foreach (OnlineMapsMarker marker in OnlineMapsMarkerManager.instance)
-        {
-            marker.OnClick += OnMarkerClick;
-        }
-
         // Add OnClick events to dynamic markers
         OnlineMapsMarker zlarinMarker = OnlineMapsMarkerManager.CreateItem(new Vector2(15.8477155474931f, 43.691415997471f), "Otok Zlarin");
         OnlineMapsMarker dolphinMarker = OnlineMapsMarkerManager.CreateItem(new Vector2(15.8245983318876f, 43.6658247771875f), "Jato dupina");
@@ -26,7 +21,12 @@ public class SpawnStartingMarkers : MonoBehaviour
         fishMarker.OnClick += OnMarkerClick;
         coralMarker.OnClick += OnMarkerClick;
 
-        
+        foreach (OnlineMapsMarker marker in OnlineMapsMarkerManager.instance)
+        {
+            marker.OnClick += OnMarkerClick;
+            marker.tags.Add(marker.label);
+        }
+
     }
 
     private void OnMarkerClick(OnlineMapsMarkerBase marker)

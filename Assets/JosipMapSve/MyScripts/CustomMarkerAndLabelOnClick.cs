@@ -1,34 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
+using UnityEngine.Timeline;
+using System.Linq;
 
-[AddComponentMenu("Infinity Code/Online Maps/Examples (API Usage)/CustomMarkerAndLabelOnClick")]
 public class CustomMarkerAndLabelOnClick : MonoBehaviour
 {
 
-    //private int number;
-
-    private string labelText;
     private string label;
 
     //private Texture2D currentIcon;
 
     public GameObject markerNameInputField;
-    public ChangeIconClick textureReference;
-
-    private RemoveLastPlaced markerCounter;
+    //public ChangeIconClick textureReference;
 
     private TMP_InputField markerNameInputText;
-    double lng, lat;
 
+    double lng, lat;
 
     private void Start()
     {
+        OnlineMaps map = OnlineMaps.instance;
         // Subscribe to the click event.
         OnlineMapsControlBase.instance.OnMapClick += OnMapClick;
         markerNameInputText = markerNameInputField.GetComponent<TMP_InputField>();
-        markerCounter = GetComponent<RemoveLastPlaced>();
 
+        SubscribeToOnClickEvent();
     }
 
     public bool markerButtonpressed
@@ -40,13 +38,16 @@ public class CustomMarkerAndLabelOnClick : MonoBehaviour
     {
         if (markerButtonpressed)
         {
-            //StartCoroutine(SetNewMarker());
-
 
             // Get the coordinates under the cursor.
             OnlineMapsControlBase.instance.GetCoords(out lng, out lat);
             NameMarker();
 
+        }
+
+        else
+        {
+            label = null;
         }
     }
 
@@ -60,7 +61,6 @@ public class CustomMarkerAndLabelOnClick : MonoBehaviour
     {
         if (string.IsNullOrEmpty(markerNameInputText.text))
         {
-            // Create a label for the marker.
             label = "Marker " + (OnlineMapsMarkerManager.CountItems + 1);
         }
 
@@ -68,10 +68,8 @@ public class CustomMarkerAndLabelOnClick : MonoBehaviour
         {
             label = markerNameInputText.text;
         }
-        Setlabel();
-        //SetIcon();
-        // Create a new marker.
-
+        SetLabel();
+        SetTag();
 
         markerButtonpressed = false;
 
@@ -81,25 +79,51 @@ public class CustomMarkerAndLabelOnClick : MonoBehaviour
 
     }
 
-    private string Setlabel()
+    private string SetLabel()
     {
-        label = markerNameInputText.text;
         return label;
     }
 
-    //public void SetIcon()
+    //private void SetIcon()
+    private string SetTag()
+    { 
+        return tag;
+    }
     //{
     //    currentIcon = textureReference.currentTexture;
+    //    return;
 
     //}
 
     private void CreateMarkerWithLabel(double lng, double lat, string label)
     {
-        OnlineMapsMarkerManager.CreateItem(lng, lat, label);
-        markerCounter.CountMarkers();
+        OnlineMapsMarker marker = OnlineMapsMarkerManager.CreateItem(lng, lat, label);
+        marker.tags.Add(label);
+        SubscribeToOnClickEvent();
         MyMarkerSaver.SaveMarkers();
     }
 
+    public void OnMarkerClick(OnlineMapsMarkerBase marker)
+    {
+        label = marker.label;
+        Debug.Log(marker.label);
+    }
+
+    private void SubscribeToOnClickEvent()
+    {
+        foreach (OnlineMapsMarker marker in OnlineMapsMarkerManager.instance)
+        {
+            marker.OnClick += OnMarkerClick;
+        }
+    }
+
+    public void RemoveMarker()
+    {
+
+        OnlineMapsMarkerManager.instance.RemoveByTag(label);
+        MyMarkerSaver.SaveMarkers();
+
+    }
 }
 
 

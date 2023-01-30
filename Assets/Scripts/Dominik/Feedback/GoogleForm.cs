@@ -1,13 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class GoogleForm : MonoBehaviour
 {
+    UnityWebRequest checkForNet;
+
+    public GameObject feedbackArea;
     public GameObject username;
-    public TMPro.TMP_Text noNetText;
+    public GameObject netErrorText;
+    public GameObject notLongEnoughError;
+    //public TMPro.TMP_Text noNetText;
 
     private string Name;
     private int longtitude;//use when Josip done
@@ -30,7 +33,7 @@ public class GoogleForm : MonoBehaviour
         UnityWebRequest www = UnityWebRequest.Post(ZlarinFormTest, form);
         yield return www.SendWebRequest();
 
-        if (www.isNetworkError)
+        if (www.result == UnityWebRequest.Result.ConnectionError)
         {
             StartCoroutine(NetError());
             Debug.Log(www.error);
@@ -38,18 +41,35 @@ public class GoogleForm : MonoBehaviour
         else
         {
             Debug.Log("Form upload complete!");
+            feedbackArea.SetActive(false);
         }
     }
     public void Send()
     {
         Name = username.GetComponent<TMPro.TMP_InputField>().text;
-        StartCoroutine(Post(Name));
+        if (Name.Length > 15)
+        {
+            StartCoroutine(Post(Name));
+        }
+        else
+        {
+            StartCoroutine(nameof(NotLongEnough));
+        }
     }
     IEnumerator NetError()
     {
-
-        noNetText.text = "Turn you internet on to send feedback!";
+        netErrorText.SetActive(true);
+        //noNetText.text = "Turn you internet on to send feedback!";
         yield return new WaitForSeconds(4);
-        noNetText.text = " ";
+        //noNetText.text = " ";
+        netErrorText.SetActive(false);
+    }
+    IEnumerator NotLongEnough()
+    {
+        notLongEnoughError.SetActive(true);
+        Debug.Log("Write a longer feedback");
+        yield return new WaitForSeconds(4);
+        notLongEnoughError.SetActive(false);
+       
     }
 }

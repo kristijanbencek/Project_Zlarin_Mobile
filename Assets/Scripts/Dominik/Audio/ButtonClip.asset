@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ButtonClip
   m_EditorClassIdentifier: 
   TextArea: Sound used on any button in the app
-  buttonClip: {fileID: 8300000, guid: e168ad628595dc24cabe0312d9268e14, type: 3}
+  buttonClip: {fileID: 0}

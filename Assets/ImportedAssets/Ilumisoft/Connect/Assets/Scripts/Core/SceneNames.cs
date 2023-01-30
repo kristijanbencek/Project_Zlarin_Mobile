@@ -5,7 +5,7 @@
     /// </summary>
     public static class SceneNames
     {
-        public static string Menu => "Menu";
+        public static string Menu => "MainMenu";
         public static string Game => "Game";
         public static string GameOver => "Game Over";
         public static string Help => "Help";

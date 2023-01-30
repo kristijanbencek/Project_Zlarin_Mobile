@@ -10,8 +10,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] string output = "";
     [SerializeField] float max = 100;
-    [SerializeField] float timer = 2;
     [SerializeField] float min = 0;
+    [SerializeField] float textPopUpTimer = 2;
+    public bool sleeping;
+
+    public int buttonTimer = 0;
 
     //Save system
     //public Text saveDataTest;
@@ -22,15 +25,15 @@ public class GameManager : MonoBehaviour
 
     [TextArea]
     public string myTextArea;
-    //Hrana
+    //Hungry, when coral gets hungry, the "hunger" animation will take priority over other animations
     public float hunger;
-    //Voda
+    //Thirst, while coral is thirsty, the animation "thirsty" will be playing
     public float thirst = 100;
-    //Šetnja
+    //Šetnja, stvarno nezz još koji kurac, kak koralj može iè u šetnju vrag te jebo mrtvi
     public float walking = 100;
-    //Igra
+    //Game, if coral is bored enough he will be in a state of boredom
     public float boredness = 100;
-    //Spavanje
+    //Sleep, if coral is sleepy, the animation "tired" will be active
     public float energy = 100;
 
     private DateTime currentDate;
@@ -71,21 +74,31 @@ public class GameManager : MonoBehaviour
     }
     void UpdateMethod()
     {
+        ResetTimer();
         ClearText();
-        // LooseAll();
+        LooseAll();
     }//custom update method
     void LooseAll()
     {
         if (hunger > 0)
-            hunger -= .1f;
+            hunger -= .01f;
         if (thirst > 0)
-            thirst -= .1f;
+            thirst -= .01f;
         if (walking > 0)
-            walking -= .1f;
+            walking -= .01f;
         if (boredness > 0)
-            boredness -= .1f;
-        if (energy > 0)
-            energy -= .1f;
+            boredness -= .01f;
+        #region energy loss
+        if(sleeping == false)
+        {
+            energy -= .01f;
+
+        }
+        else
+        {
+            energy += .03f;
+        }
+        #endregion
         SaveWhileInBackground();
     }//Method that makes koralj loose everything over time
     #region Koralj mechanics
@@ -107,7 +120,7 @@ public class GameManager : MonoBehaviour
     {
 
         output = "";
-        timer = 2;
+        textPopUpTimer = 2;
         if (hunger > 20 && thirst > 20 && energy > 20)
         {
             walking = Math.Clamp(walking, 0, 100);
@@ -143,14 +156,14 @@ public class GameManager : MonoBehaviour
         {
             boredness = Mathf.Clamp(boredness, min, max);
             boredness += 10;
-            energy -= 20;
+            energy -= 5;
             gameData.currentEnergy = energy;
             sceneManager.LoadScene("Game Medium");
         }
         else//Write an output depending on its hunger/thirst/energy state
         {
             output = "";
-            timer = 2;
+            textPopUpTimer = 2;
 
             //(float hunger, float thirst, float energy) stats = (hunger, this.thirst, this.energy);
 
@@ -183,13 +196,12 @@ public class GameManager : MonoBehaviour
         }
         SaveGameData();
     }
-    public void EnergyMechanic()
-    {
-        energy = Mathf.Clamp(energy, min, max);
-        energy += 10;
-        gameData.currentEnergy = energy;
-        SaveGameData();
-    }
+    //public void EnergyMechanic()
+    //{
+    //    energy += 0.5f;
+    //    gameData.currentEnergy = energy;
+    //    SaveGameData();
+    //}
 
     #endregion
     public void SaveDateOnQuit()
@@ -208,6 +220,7 @@ public class GameManager : MonoBehaviour
     }//Was the app loaded for the first time
     void LoadData()
     {
+        sleeping = gameData.isSleeping;
         hunger = gameData.currentHunger;
         thirst = gameData.currentThirst;
         energy = gameData.currentEnergy;
@@ -217,11 +230,11 @@ public class GameManager : MonoBehaviour
 
         if (ui.statusText.text != string.Empty)
         {
-            timer -= 1;
-            if (timer <= 0)
+            textPopUpTimer -= 1;
+            if (textPopUpTimer <= 0)
             {
                 ui.statusText.text = "";
-                timer = 2;
+                textPopUpTimer = 2;
             }
         }
     }//A method that clears a pop-up's text after a given time 
@@ -254,7 +267,15 @@ public class GameManager : MonoBehaviour
         var subtractThis = secondsPassedSinceLastQuit / 60 * .05f;
         hunger -= subtractThis;
         thirst -= subtractThis;
-        energy -= subtractThis;
+
+        if (sleeping == true)
+        {
+            energy += subtractThis;
+        }
+        else
+        {
+            energy -= subtractThis;
+        }
 
         thirst = Math.Clamp(thirst, 0, 100);
         energy = Math.Clamp(energy, 0, 100);
@@ -265,9 +286,30 @@ public class GameManager : MonoBehaviour
         gameData.currentThirst = thirst;
         SaveGameData();
     }
-    //void SetToZero(float value)
-    //{
-    //    value = 0;
-    //}
+    public void SetSleepBool()
+    {
+        //if(sleeping == true)
+        //{
+        //    sleeping = false;
+        //}
 
+        /*
+         * Make it so that when the kurac is sleeping none of the other buttons are interactable 
+         */
+        
+         if (hunger > 20 && thirst > 20 && buttonTimer <= 0)
+        {
+            sleeping = !sleeping;
+            gameData.isSleeping = sleeping;
+            SaveGameData();
+            buttonTimer = 5;
+        }
+    }
+    void ResetTimer()
+    {
+        if (buttonTimer >= 0)
+        {
+            buttonTimer -= 1;
+        }
+    }
 }

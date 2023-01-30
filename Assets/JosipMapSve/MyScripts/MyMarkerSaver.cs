@@ -1,12 +1,16 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+
+
 public class MyMarkerSaver : MonoBehaviour
 {
     /// <summary>
     /// Key in PlayerPrefs
     /// </summary>
     private static string prefsKey = "markers";
+
+    private CustomMarkerAndLabelOnClick customMarker;
 
     /// <summary>
     /// Saves markers to PlayerPrefs as xml string
@@ -15,7 +19,6 @@ public class MyMarkerSaver : MonoBehaviour
     {
         // Create XMLDocument and first child
         OnlineMapsXML xml = new OnlineMapsXML("Markers");
-
         // Save markers data
         foreach (OnlineMapsMarker marker in OnlineMapsMarkerManager.instance)
         {
@@ -37,6 +40,8 @@ public class MyMarkerSaver : MonoBehaviour
     /// </summary>
     private void Start()
     {
+
+        customMarker = GetComponent<CustomMarkerAndLabelOnClick>();
         // Try load markers
         TryLoadMarkers();
 
@@ -72,6 +77,11 @@ public class MyMarkerSaver : MonoBehaviour
 
             // Create marker
             OnlineMapsMarkerManager.CreateItem(position, label);
+
+            foreach (OnlineMapsMarker marker in OnlineMapsMarkerManager.instance)
+            {
+                marker.OnClick += customMarker.OnMarkerClick;
+            }
 
         }
     }

@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/ImportedAssets/Ilumisoft/Connect/Assets/Scenes/Settings.unity
     guid: f30f9ee148e3bfc4fa91181a25841ca4
+  - enabled: 1
+    path: Assets/ImportedAssets/Ilumisoft/Connect/Assets/Scenes/Game.unity
+    guid: 71601c453769d0e4ea06ccf091ea7cab
   m_configObjects: {}
