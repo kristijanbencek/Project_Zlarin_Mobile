@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] float max = 100;
     [SerializeField] float min = 0;
     [SerializeField] float textPopUpTimer = 2;
-    public bool sleeping;
 
+    [Header("SleepingMechanicStuff")]
+    [SerializeField] GameObject wakeUpButton;
+    public bool sleeping;
     public int buttonTimer = 0;
 
     //Save system
@@ -29,7 +31,7 @@ public class GameManager : MonoBehaviour
     public float hunger;
     //Thirst, while coral is thirsty, the animation "thirsty" will be playing
     public float thirst = 100;
-    //Šetnja, stvarno nezz još koji kurac, kak koralj može iè u šetnju vrag te jebo mrtvi
+    
     public float walking = 100;
     //Game, if coral is bored enough he will be in a state of boredom
     public float boredness = 100;
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        CheckWakeButton(sleeping);
         if (gameData.firstLoad == true)
         {
             coralState.SetActive(false);
@@ -92,11 +95,12 @@ public class GameManager : MonoBehaviour
         if(sleeping == false)
         {
             energy -= .01f;
-
+            energy = Mathf.Clamp(energy, 0, 100);
         }
         else
         {
             energy += .03f;
+            energy = Mathf.Clamp(energy, 0, 100);
         }
         #endregion
         SaveWhileInBackground();
@@ -286,19 +290,17 @@ public class GameManager : MonoBehaviour
         gameData.currentThirst = thirst;
         SaveGameData();
     }
-    public void SetSleepBool()
+    public void GoToSleep()
     {
         //if(sleeping == true)
         //{
         //    sleeping = false;
         //}
 
-        /*
-         * Make it so that when the kurac is sleeping none of the other buttons are interactable 
-         */
         
          if (hunger > 20 && thirst > 20 && buttonTimer <= 0)
         {
+            wakeUpButton.gameObject.SetActive(true);
             sleeping = !sleeping;
             gameData.isSleeping = sleeping;
             SaveGameData();
@@ -311,5 +313,21 @@ public class GameManager : MonoBehaviour
         {
             buttonTimer -= 1;
         }
+    }
+    public void WakeUp()
+    {
+
+        if(sleeping == true && buttonTimer <=0)
+        {
+            wakeUpButton.gameObject.SetActive(false);
+            buttonTimer = 5;
+            sleeping = false;
+            gameData.isSleeping = sleeping;
+            SaveGameData();
+        }
+    }
+    void CheckWakeButton(bool isItActive)
+    {
+        wakeUpButton.gameObject.SetActive(isItActive);
     }
 }

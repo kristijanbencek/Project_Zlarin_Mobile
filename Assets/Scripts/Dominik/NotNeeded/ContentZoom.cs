@@ -101,5 +101,4 @@ public class ContentZoom : MonoBehaviour
         }
     }
 }
-//ChangeLog: - 04/12/2022(changed scrollView reference from "scrollView" to "scrollView")
-//           - Plus side = no out of bonds weird bullshit reseting, negative = small res picture means peace of shit quality map
+

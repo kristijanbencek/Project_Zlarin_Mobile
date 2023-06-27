@@ -14,6 +14,8 @@ public class GameData
     public float currentEnergy;
 
     public bool firstLoad;
+
+
     public bool isSleeping;
 
     public GameData()
